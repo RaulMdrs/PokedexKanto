@@ -11,4 +11,10 @@ import Foundation
 struct PokemonData : Codable{
     let name : String
     let url : String
+    var id : String {
+        FindIDPokemon.FindID(url)
+    }
+    var imageUrl : String {
+        return "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(id).png"
+    }
 }

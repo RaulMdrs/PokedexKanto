@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Pokemon View Controller-->
+        <!--Pokedex View Controller-->
         <scene sceneID="wws-jx-fbN">
             <objects>
-                <viewController id="2O8-Qe-rvz" customClass="PokemonViewController" customModule="PokedexKanto" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="2O8-Qe-rvz" customClass="PokedexViewController" customModule="PokedexKanto" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Nq0-Z4-tMi">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -52,7 +52,7 @@
                                                                             </constraints>
                                                                         </imageView>
                                                                     </subviews>
-                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                    <color key="backgroundColor" systemColor="systemGray6Color"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="trailing" secondItem="FKb-ww-VGE" secondAttribute="trailing" constant="5" id="AkT-r6-TFE"/>
                                                                         <constraint firstItem="AEp-iW-Wvf" firstAttribute="top" secondItem="biL-MQ-N90" secondAttribute="top" constant="5" id="Odz-3m-HdY"/>
@@ -81,7 +81,7 @@
                                                                             </constraints>
                                                                         </imageView>
                                                                     </subviews>
-                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                    <color key="backgroundColor" systemColor="systemGray6Color"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="bottom" secondItem="AnM-UH-Cn9" secondAttribute="bottom" constant="5" id="FyO-QW-RoL"/>
                                                                         <constraint firstAttribute="trailing" secondItem="AnM-UH-Cn9" secondAttribute="trailing" constant="5" id="S2X-nh-Bbg"/>
@@ -94,7 +94,7 @@
                                                             </subviews>
                                                         </stackView>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="bottom" secondItem="lnY-g3-nL7" secondAttribute="bottom" constant="5" id="1bB-wb-vc7"/>
                                                         <constraint firstItem="lnY-g3-nL7" firstAttribute="top" secondItem="PL6-Uz-5f2" secondAttribute="top" constant="5" id="Hhx-Eb-vNg"/>
@@ -103,7 +103,7 @@
                                                     </constraints>
                                                 </view>
                                             </subviews>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <color key="backgroundColor" systemColor="systemRedColor"/>
                                             <constraints>
                                                 <constraint firstItem="PL6-Uz-5f2" firstAttribute="top" secondItem="AyE-Ei-Trl" secondAttribute="top" constant="10" id="HHl-BW-qL4"/>
                                                 <constraint firstAttribute="bottom" secondItem="PL6-Uz-5f2" secondAttribute="bottom" constant="10" id="cSZ-bm-VAp"/>
@@ -116,12 +116,9 @@
                                             <outlet property="firstPokemonImage" destination="FKb-ww-VGE" id="SWp-ee-tPj"/>
                                             <outlet property="firstPokemonNameLabel" destination="AEp-iW-Wvf" id="93E-NN-sDt"/>
                                             <outlet property="firstPokemonView" destination="biL-MQ-N90" id="3XH-kv-KFL"/>
-                                            <outlet property="imagePokemon" destination="FKb-ww-VGE" id="zuO-QP-zHF"/>
-                                            <outlet property="namePokemonLabel" destination="AEp-iW-Wvf" id="Hj2-TX-hzx"/>
                                             <outlet property="secondPokemonImage" destination="AnM-UH-Cn9" id="QYL-gI-jil"/>
                                             <outlet property="secondPokemonNameLabel" destination="LH3-7b-ETB" id="5aA-78-kaU"/>
                                             <outlet property="secondPokemonView" destination="Zx8-xD-kBf" id="OXh-2p-ijb"/>
-                                            <outlet property="viewCell" destination="PL6-Uz-5f2" id="Lhe-Uw-kM3"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -144,7 +141,7 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="LPn-QI-bWF"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemRedColor"/>
                         <constraints>
                             <constraint firstItem="LPn-QI-bWF" firstAttribute="trailing" secondItem="mlM-65-ooe" secondAttribute="trailing" id="Jma-eO-45b"/>
                             <constraint firstItem="mlM-65-ooe" firstAttribute="leading" secondItem="LPn-QI-bWF" secondAttribute="leading" id="Mnc-Iy-6Hg"/>
@@ -186,8 +183,11 @@
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
-        <systemColor name="systemGray5Color">
-            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
