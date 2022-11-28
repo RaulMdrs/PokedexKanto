@@ -11,6 +11,7 @@ import Foundation
 struct PokemonData : Codable{
     let name : String
     let url : String
+    var pokemonDetail : PokemonDetails?
     var id : String {
         FindIDPokemon.FindID(url)
     }
