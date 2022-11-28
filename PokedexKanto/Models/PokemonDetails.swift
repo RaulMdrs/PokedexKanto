@@ -9,4 +9,13 @@ import Foundation
 
 struct PokemonDetails : Codable{
     var stats : [Stats]
+    var types : [TypePokemon]
+}
+
+struct TypePokemon : Codable{
+    var type : TypeInfo
+}
+
+struct TypeInfo : Codable{
+    var name : String
 }

@@ -11,11 +11,11 @@
 		307FBB752935282D00059709 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307FBB742935282D00059709 /* Stats.swift */; };
 		307FBB7729352B4800059709 /* StatsInfoUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307FBB7629352B4800059709 /* StatsInfoUrl.swift */; };
 		307FBB7929352C0100059709 /* PokemonDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307FBB7829352C0100059709 /* PokemonDetails.swift */; };
+		307FBB8029354B5500059709 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30F0D476293121B900E75E86 /* Assets.xcassets */; };
 		30F0D46E293121B800E75E86 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F0D46D293121B800E75E86 /* AppDelegate.swift */; };
 		30F0D470293121B800E75E86 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F0D46F293121B800E75E86 /* SceneDelegate.swift */; };
 		30F0D472293121B800E75E86 /* PokedexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F0D471293121B800E75E86 /* PokedexViewController.swift */; };
 		30F0D475293121B800E75E86 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30F0D473293121B800E75E86 /* Main.storyboard */; };
-		30F0D477293121B900E75E86 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30F0D476293121B900E75E86 /* Assets.xcassets */; };
 		30F0D47A293121B900E75E86 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30F0D478293121B900E75E86 /* LaunchScreen.storyboard */; };
 		30F0D4822931266700E75E86 /* Pokedex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F0D4812931266700E75E86 /* Pokedex.swift */; };
 		30F0D484293126D900E75E86 /* PokemonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F0D483293126D900E75E86 /* PokemonData.swift */; };
@@ -181,8 +181,8 @@
 			files = (
 				30F0D48D29314B7100E75E86 /* PokemonScreen.storyboard in Resources */,
 				30F0D47A293121B900E75E86 /* LaunchScreen.storyboard in Resources */,
-				30F0D477293121B900E75E86 /* Assets.xcassets in Resources */,
 				30F0D475293121B800E75E86 /* Main.storyboard in Resources */,
+				307FBB8029354B5500059709 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

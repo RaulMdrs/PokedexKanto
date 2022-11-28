@@ -10,6 +10,7 @@ import UIKit
 class PokemonViewController: UIViewController {
     @IBOutlet weak var pokemonImage: UIImageView!
     
+    @IBOutlet weak var backgroundViewImage: UIView!
     @IBOutlet var statsLabel: [UILabel]!
     
     var pokemon : PokemonData?
@@ -19,7 +20,7 @@ class PokemonViewController: UIViewController {
         super.viewDidLoad()
         
         getPokemon()
-        title = "\(pokemon!.name.uppercased())"
+        title = "\(pokemon!.name)"
         setImage()
     }
 
@@ -38,8 +39,10 @@ class PokemonViewController: UIViewController {
                         let decoder = JSONDecoder()
                         self.pokemon!.pokemonDetail = try decoder.decode(PokemonDetails.self, from: data)
                         
+                        print((self.pokemon?.pokemonDetail?.types[0].type.name)!)
                         DispatchQueue.main.async{
                             self.setLabels()
+                            self.setBackgound()
                             self.hiddeLoader()
                         }
                     }catch let error {
@@ -62,6 +65,10 @@ class PokemonViewController: UIViewController {
         statsLabel[5].text = String((pokemon!.pokemonDetail?.stats[5].baseStat)!)
     }
     
+    func setBackgound(){
+        print((self.pokemon?.pokemonDetail?.types[0].type.name)!)
+        backgroundViewImage.backgroundColor = UIColor(named: (self.pokemon!.pokemonDetail!.types[0].type.name))
+    }
     func showLoader()
     {
         loaderView.isHidden = false
