@@ -9,10 +9,9 @@ import UIKit
 
 class PokemonViewController: UIViewController {
     @IBOutlet weak var pokemonImage: UIImageView!
-    
     @IBOutlet weak var backgroundViewImage: UIView!
+    @IBOutlet var typesLabel: [UILabel]!
     @IBOutlet var statsLabel: [UILabel]!
-    
     var pokemon : PokemonData?
     
     @IBOutlet weak var loaderView: UIView!
@@ -42,7 +41,7 @@ class PokemonViewController: UIViewController {
                         print((self.pokemon?.pokemonDetail?.types[0].type.name)!)
                         DispatchQueue.main.async{
                             self.setLabels()
-                            self.setBackgound()
+                            self.setTypeInformation()
                             self.hiddeLoader()
                         }
                     }catch let error {
@@ -65,9 +64,40 @@ class PokemonViewController: UIViewController {
         statsLabel[5].text = String((pokemon!.pokemonDetail?.stats[5].baseStat)!)
     }
     
-    func setBackgound(){
-        print((self.pokemon?.pokemonDetail?.types[0].type.name)!)
-        backgroundViewImage.backgroundColor = UIColor(named: (self.pokemon!.pokemonDetail!.types[0].type.name))
+    func setTypeInformation(){
+//        print("Entrei no type e tem \(self.pokemon!.pokemonDetail?.types.count)")
+//        print((self.pokemon?.pokemonDetail?.types[0].type.name)!)
+//        print((self.pokemon?.pokemonDetail?.types[1].type.name)!)
+        navigationController?.navigationBar.backgroundColor = UIColor(named: self.pokemon!.pokemonDetail!.types[0].type.name)!
+        
+        let color : UIColor = UIColor(named: self.pokemon!.pokemonDetail!.types[0].type.name)!
+        backgroundViewImage.backgroundColor = color.withAlphaComponent(0.8)
+        
+        if self.pokemon?.pokemonDetail?.types.count == 2{
+            print("entrei no count 2")
+            
+            typesLabel[0].text = self.pokemon!.pokemonDetail!.types[0].type.name
+            typesLabel[0].backgroundColor = UIColor(named: (self.pokemon!.pokemonDetail!.types[0].type.name))
+            typesLabel[0].isHidden = false
+            
+            typesLabel[1].text = self.pokemon!.pokemonDetail!.types[1].type.name
+            typesLabel[1].backgroundColor = UIColor(named: (self.pokemon!.pokemonDetail!.types[1].type.name))
+            typesLabel[1].isHidden = false
+            
+        }else{
+            typesLabel[0].text = self.pokemon!.pokemonDetail!.types[0].type.name
+            typesLabel[0].backgroundColor = UIColor(named: (self.pokemon!.pokemonDetail!.types[0].type.name))
+            typesLabel[0].isHidden = false
+            
+            typesLabel[1].text = ""
+            typesLabel[1].backgroundColor = .clear
+            typesLabel[1].isHidden = true
+        }
+        typesLabel[0].layer.cornerRadius = 15
+        typesLabel[0].layer.masksToBounds = true
+        
+        typesLabel[1].layer.cornerRadius = 15
+        typesLabel[1].layer.masksToBounds = true
     }
     func showLoader()
     {

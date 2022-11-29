@@ -20,6 +20,14 @@ class PokedexViewController: UIViewController {
         getPokedex(count: 101)
         // Do any additional setup after loading the view.
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        navigationController?.navigationBar.backgroundColor = .clear
+        navigationController?.toolbar.backgroundColor = .red
+    }
+       
     
     func showLoader()
     {

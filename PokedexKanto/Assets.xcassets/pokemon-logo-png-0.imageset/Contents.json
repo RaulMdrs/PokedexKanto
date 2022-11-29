@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "pokebola.png",
+      "filename" : "pokemon-logo-png-0.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -12,12 +12,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "ultraball.png",
+      "filename" : "black-pokemon-logo-transparent-27.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "pokebola@2x.png",
+      "filename" : "pokemon-logo-png-0@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -28,12 +28,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "ultraball@2x.png",
+      "filename" : "black-pokemon-logo-transparent-27@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "pokebola@3x.png",
+      "filename" : "pokemon-logo-png-0@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     },
@@ -44,7 +44,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "ultraball@3x.png",
+      "filename" : "black-pokemon-logo-transparent-27@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
