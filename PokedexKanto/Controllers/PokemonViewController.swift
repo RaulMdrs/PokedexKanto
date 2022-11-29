@@ -12,8 +12,9 @@ class PokemonViewController: UIViewController {
     @IBOutlet weak var backgroundViewImage: UIView!
     @IBOutlet var typesLabel: [UILabel]!
     @IBOutlet var statsLabel: [UILabel]!
+    @IBOutlet weak var getShinyImageView: UIImageView!
     var pokemon : PokemonData?
-    
+    var isShiny = false
     @IBOutlet weak var loaderView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,33 @@ class PokemonViewController: UIViewController {
         setImage()
     }
 
+    @objc func swichImage(){
+        
+        if isShiny{
+            guard let url = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(pokemon!.id).png") else { return }
+            DispatchQueue.global().async {
+                guard let data = try? Data(contentsOf: url) else { return }
+                DispatchQueue.main.async {
+                    print(data)
+                    self.pokemonImage.image = UIImage(data: data)
+                    self.isShiny = false
+                }
+            }
+        }
+        else
+        {
+            guard let url = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/\(pokemon!.id).png") else { return }
+            DispatchQueue.global().async {
+                guard let data = try? Data(contentsOf: url) else { return }
+                DispatchQueue.main.async {
+                    print(data)
+                    self.pokemonImage.image = UIImage(data: data)
+                    self.isShiny = true
+                }
+            }
+        }
+        }
+       
     
     func getPokemon(){
         let url = URL(string: "https://pokeapi.co/api/v2/pokemon/\(pokemon!.id)")
@@ -41,7 +69,8 @@ class PokemonViewController: UIViewController {
                         print((self.pokemon?.pokemonDetail?.types[0].type.name)!)
                         DispatchQueue.main.async{
                             self.setLabels()
-                            self.setTypeInformation()
+                            self.setLayout()
+                            self.setGesture()
                             self.hiddeLoader()
                         }
                     }catch let error {
@@ -64,11 +93,18 @@ class PokemonViewController: UIViewController {
         statsLabel[5].text = String((pokemon!.pokemonDetail?.stats[5].baseStat)!)
     }
     
-    func setTypeInformation(){
-//        print("Entrei no type e tem \(self.pokemon!.pokemonDetail?.types.count)")
-//        print((self.pokemon?.pokemonDetail?.types[0].type.name)!)
-//        print((self.pokemon?.pokemonDetail?.types[1].type.name)!)
+    func setGesture()
+    {
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(swichImage))
+        getShinyImageView.addGestureRecognizer(gesture)
+        getShinyImageView.isUserInteractionEnabled = true
+    }
+    
+    func setLayout(){
         navigationController?.navigationBar.backgroundColor = UIColor(named: self.pokemon!.pokemonDetail!.types[0].type.name)!
+        
+        getShinyImageView.layer.cornerRadius = 15
+        getShinyImageView.layer.masksToBounds = true
         
         let color : UIColor = UIColor(named: self.pokemon!.pokemonDetail!.types[0].type.name)!
         backgroundViewImage.backgroundColor = color.withAlphaComponent(0.8)
