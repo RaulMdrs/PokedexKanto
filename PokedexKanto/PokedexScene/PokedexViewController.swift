@@ -8,19 +8,37 @@
 import UIKit
 import Alamofire
 
+protocol PokedexViewControllerProtocol: AnyObject {
+    func showPokedex(pokedex: Pokedex)
+}
+
+extension PokedexViewController : PokedexViewControllerProtocol {
+    func showPokedex(pokedex: Pokedex) {
+        print("showPokedex")
+        self.pokedex = pokedex
+        pokemonTableView.reloadData()
+        hiddeLoader()
+        
+
+    }
+}
+
 class PokedexViewController: UIViewController {
     
     @IBOutlet weak var activityLoader: UIActivityIndicatorView!
     @IBOutlet weak var loaderView: UIView!
-    var pokedex : Pokedex?
     @IBOutlet weak var pokemonTableView: UITableView!
+    var pokedex : Pokedex?
+    
+    var interactor : PokedexInteractor?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupVIP()
         title = "Pokedex"
         pokemonTableView.dataSource = self
-        getPokedexAlamofire()
-       // getPokedex(count: 101)
-        // Do any additional setup after loading the view.
+        
+        interactor?.requestPokedex()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -28,6 +46,20 @@ class PokedexViewController: UIViewController {
         
         navigationController?.navigationBar.backgroundColor = .clear
         navigationController?.toolbar.backgroundColor = .red
+    }
+    
+    func setupVIP() {
+        let viewController = self
+        let interactor = PokedexInteractor()
+        let presenter = PokedexPresenter()
+        
+        viewController.interactor = interactor
+       // viewController.router = router
+        interactor.presenter = presenter
+        presenter.viewController = viewController
+        
+//        router.viewController = viewController
+//        router.dataStore = interactor
     }
        
     
@@ -53,49 +85,6 @@ class PokedexViewController: UIViewController {
 
         self.navigationController?.pushViewController(pokemonViewController, animated: true)
     }
-    
-    
-    func getPokedex(count : Int){
-        let url = URL(string: "https://pokeapi.co/api/v2/pokemon?limit=\(count)")
-        if let url = url{
-            var request = URLRequest(url: url)
-            request.httpMethod = "GET"
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            
-            let session = URLSession.shared
-            let task = session.dataTask(with: request) { data, response, error in
-                if let data = data, error == nil{
-                    do{
-                        let decoder = JSONDecoder()
-                        self.pokedex = try decoder.decode(Pokedex.self, from: data)
-                        print(self.pokedex!.pokemonData[1].imageUrl)
-                        
-                        DispatchQueue.main.async{
-                            self.hiddeLoader()
-                            self.pokemonTableView.reloadData()
-                        }
-                    }catch let error {
-                        print(error.localizedDescription)
-                        print(error)
-                    }
-                }
-            }
-            task.resume()
-            showLoader()
-        }
-    }
-    
-    func getPokedexAlamofire() {
-        guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon?limit=100") else {return}
-        AF.request(url, method: .get).validate().responseDecodable(of: Pokedex.self) {
-            response in
-            self .pokedex = response.value
-            DispatchQueue.main.async{
-                self.hiddeLoader()
-                self.pokemonTableView.reloadData()
-            }
-        }
-    }
 }
 
 extension PokedexViewController :
@@ -110,7 +99,6 @@ extension PokedexViewController :
         pokemons.append(pokedex!.pokemonData[indexPath.row * 2])
         pokemons.append(pokedex!.pokemonData[(indexPath.row * 2) + 1] )
         let pokeCell = pokemonTableView.dequeueReusableCell(withIdentifier: "pokemonsCell", for: indexPath) as! PokemonsCell
-        
         
         let firstGesture = Gesture(target: self, action: #selector(ShowDetailsPokemon(gesture:)))
         firstGesture.pokemon = pokedex?.pokemonData[indexPath.row * 2]
