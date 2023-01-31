@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import Alamofire
 
 class PokedexViewController: UIViewController {
-
+    
     @IBOutlet weak var activityLoader: UIActivityIndicatorView!
     @IBOutlet weak var loaderView: UIView!
     var pokedex : Pokedex?
@@ -17,7 +18,8 @@ class PokedexViewController: UIViewController {
         super.viewDidLoad()
         title = "Pokedex"
         pokemonTableView.dataSource = self
-        getPokedex(count: 101)
+        getPokedexAlamofire()
+       // getPokedex(count: 101)
         // Do any additional setup after loading the view.
     }
 
@@ -83,11 +85,21 @@ class PokedexViewController: UIViewController {
         }
     }
     
-    
-    
+    func getPokedexAlamofire() {
+        guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon?limit=100") else {return}
+        AF.request(url, method: .get).validate().responseDecodable(of: Pokedex.self) {
+            response in
+            self .pokedex = response.value
+            DispatchQueue.main.async{
+                self.hiddeLoader()
+                self.pokemonTableView.reloadData()
+            }
+        }
+    }
 }
 
-extension PokedexViewController : UITableViewDataSource{
+extension PokedexViewController :
+    UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (pokedex?.pokemonData.count ?? 0) / 2
     }
