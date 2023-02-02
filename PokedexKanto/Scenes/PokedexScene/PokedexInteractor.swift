@@ -25,7 +25,7 @@ class PokedexInteractor : PokedexInteractorProtocol{
     }
     
     func nonReceivedPokedex() {
-       // presenter. vai chamar o presenter para mostrar erro
+       
     }
     
     func receivedPokedex(pokedex: Pokedex) {

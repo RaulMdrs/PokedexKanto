@@ -7,11 +7,7 @@
 
 import Foundation
 
-protocol PokedexPresenterProtocol {
-    func willShowPokedex()
-}
-
-class PokedexPresenter : PokedexPresenterProtocol{
+class PokedexPresenter{
     var viewController : PokedexViewControllerProtocol?
     
     func willShowPokedex() {

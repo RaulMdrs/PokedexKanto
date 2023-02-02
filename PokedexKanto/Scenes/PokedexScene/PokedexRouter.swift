@@ -17,7 +17,9 @@ class PokedexRouter : PokedexRouterProtocol{
         
         let pokemonViewController = pokemonStoryboard.instantiateViewController(withIdentifier: "PokemonScreen") as! PokemonViewController
         
-        pokemonViewController.pokemon = pokemon
+        let interactor = PokemonInteractor()
+        interactor.pokemon = pokemon
+        pokemonViewController.interactor = interactor
 
         navigation.pushViewController(pokemonViewController, animated: true)
     }

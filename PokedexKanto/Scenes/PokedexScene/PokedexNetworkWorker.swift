@@ -8,10 +8,6 @@
 import Foundation
 import Alamofire
 
-//protocol PokedexNetworkWorkerProtocol {
-//    func requestPokedex()
-//}
-
 public class PokedexNetworkWorker {
     var interactor : PokedexInteractorProtocol?
     func requestPokedex(){
