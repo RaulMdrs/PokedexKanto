@@ -18,7 +18,6 @@ class PokemonsCell: UITableViewCell{
     
     func configLayout(pokemon : [PokemonData])
     {
-        
         firstPokemonView.layer.cornerRadius = 25.0
         secondPokemonView.layer.cornerRadius = 25.0
         
@@ -45,17 +44,4 @@ class PokemonsCell: UITableViewCell{
             }
         }
     }
-    
-
-//    override func awakeFromNib() {
-//        super.awakeFromNib()
-//        // Initialization code
-//    }
-//
-//    override func setSelected(_ selected: Bool, animated: Bool) {
-//        super.setSelected(selected, animated: animated)
-//
-//        // Configure the view for the selected state
-//    }
-
 }

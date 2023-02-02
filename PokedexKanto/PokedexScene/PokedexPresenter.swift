@@ -8,17 +8,15 @@
 import Foundation
 
 protocol PokedexPresenterProtocol {
-    func willShowPokedex(pokedex : Pokedex)
+    func willShowPokedex()
 }
 
 class PokedexPresenter : PokedexPresenterProtocol{
-    weak var viewController : PokedexViewControllerProtocol?
+    var viewController : PokedexViewControllerProtocol?
     
-    
-    func willShowPokedex(pokedex : Pokedex) {
-        viewController?.showPokedex(pokedex: pokedex)
-        
-        
+    func willShowPokedex() {
+        viewController?.showPokedex()
     }
 }
+
 
