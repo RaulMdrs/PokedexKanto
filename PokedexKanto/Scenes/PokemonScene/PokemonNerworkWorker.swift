@@ -12,28 +12,24 @@ class PokemonNetworkWorker {
     var interactor : PokemonInteractorProtocol?
     
     func getPokemonDetails(pokemonURL: String) {
-        print("entrou na func")
-        if let url = URL(string: pokemonURL) {
-            print("passou da url")
+        if let url = URL(string: pokemonURL + "a") {
             AF.request(url, method: .get).validate().responseDecodable(of: PokemonDetails.self) {
                 response in
                 guard let pokemonDetails = response.value else {
-                    print("falhou o guard let")
-                    self.interactor?.nonReceived()
+                    self.interactor?.nonReceived(error: "aa")
                     return
                 }
-                print("bombou o guard let")
                 self.interactor?.receivedPokemon(pokemonDetails: pokemonDetails)
             }
         }
     }
     
     
-    func getShinyImage(url : String) {
+    func getImage(url : String) {
         guard let url = URL(string: url) else { return }
         DispatchQueue.global().async {
             guard let data = try? Data(contentsOf: url) else { return }
-            self.interactor?.swichShiny(data: data)
+            self.interactor?.setImage(data: data)
         }
     }
 }

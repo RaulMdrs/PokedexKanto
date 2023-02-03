@@ -6,55 +6,56 @@
 //
 
 import Foundation
+import UIKit
 
 protocol PokemonInteractorProtocol {
     func receivedPokemon(pokemonDetails : PokemonDetails)
-    func nonReceived()
-    func swichShiny(data: Data)
+    func nonReceived(error: String)
+    func setImage(data: Data)
 }
 
 class PokemonInteractor {
     var pokemon : PokemonData?
-    var isShiny : Bool = false
+    var isShiny : Bool = true {
+        didSet {
+            switchShiny()
+        }
+    }
 
     var presenter : PokemonPresenter?
     var workerNetwork : PokemonNetworkWorker?
     
     func requestPokemon() {
-        print("chamou request pro network")
-       // print(pokemon?.name)
         guard let url = pokemon?.url else {return}
         workerNetwork = PokemonNetworkWorker()
         workerNetwork?.interactor = self
         workerNetwork?.getPokemonDetails(pokemonURL: url)
     }
     
-    func swichShiny() {
+    func switchShiny() {
         guard let pokemonID = pokemon?.id else {return}
         workerNetwork = PokemonNetworkWorker()
         workerNetwork?.interactor = self
-        if isShiny {
-            isShiny = false
-            workerNetwork?.getShinyImage(url: ApiPath.getPokemonImage(pokemonID: pokemonID))
+        if !isShiny {
+            workerNetwork?.getImage(url: ApiPath.getPokemonImage(pokemonID: pokemonID))
         } else {
-            isShiny = true
-            workerNetwork?.getShinyImage(url: ApiPath.getPokemonShinyImage(pokemonID: pokemonID))
+            workerNetwork?.getImage(url: ApiPath.getPokemonShinyImage(pokemonID: pokemonID))
         }
     }
 }
 
 extension PokemonInteractor : PokemonInteractorProtocol {
+    func nonReceived(error: String) {
+        presenter?.willShowError(color: .red)
+    }
+    
     
     func receivedPokemon(pokemonDetails: PokemonDetails) {
         pokemon?.pokemonDetail = pokemonDetails
-        presenter?.willShowDetails()
+        presenter?.willShowDetails(numberOfTypes: self.pokemon?.pokemonDetail?.types.count ?? 1)
     }
     
-    func nonReceived() {
-        print("algo")
-    }
-    
-    func swichShiny(data: Data) {
+    func setImage(data: Data) {
         presenter?.willSwichImage(data: data)
     }
 }

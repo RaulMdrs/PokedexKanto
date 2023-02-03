@@ -10,23 +10,9 @@ import UIKit
 protocol PokemonVControllerProtocol {
     func showDetails()
     func swichImage(image: UIImage)
-}
-
-extension PokemonViewController : PokemonVControllerProtocol {
-    func swichImage(image: UIImage) {
-        DispatchQueue.main.async {
-            self.pokemonImage.image = image
-        }
-    }
-    
-    func showDetails() {
-        setLabels()
-        setLayout()
-        setGesture()
-        setImage()
-        hiddeLoader()
-        title = "\(interactor!.pokemon!.name ?? "ANTONIO NUNES")"
-    }
+    func showOneType()
+    func showTwoTypes()
+    func showError(error: ModalError)
 }
 
 class PokemonViewController: UIViewController {
@@ -38,21 +24,20 @@ class PokemonViewController: UIViewController {
     @IBOutlet weak var loaderView: UIView!
     
     var interactor : PokemonInteractor?
-    //var router : PokemonRouter?
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        interactor?.requestPokemon()
         setupVIP()
-       // setImage()
+        interactor?.requestPokemon()
+
     }
 
     @objc func swichImagePokemon(){
-        interactor?.swichShiny()
+        interactor?.isShiny = !interactor!.isShiny
     }
        
     private func setupVIP() {
         let viewController = self
-        //let interactor = PokemonInteractor()
         let presenter = PokemonPresenter()
 
         viewController.interactor = interactor
@@ -85,25 +70,6 @@ class PokemonViewController: UIViewController {
         let color : UIColor = UIColor(named: self.interactor!.pokemon?.pokemonDetail!.types[0].type.name ?? "red")!
         backgroundViewImage.backgroundColor = color.withAlphaComponent(0.8)
         
-        if self.interactor!.pokemon?.pokemonDetail?.types.count == 2{
-            
-            typesLabel[0].text = self.interactor!.pokemon?.pokemonDetail!.types[0].type.name
-            typesLabel[0].backgroundColor = UIColor(named: (self.interactor!.pokemon?.pokemonDetail!.types[0].type.name)!)
-            typesLabel[0].isHidden = false
-            
-            typesLabel[1].text = self.interactor!.pokemon?.pokemonDetail!.types[1].type.name
-            typesLabel[1].backgroundColor = UIColor(named: (self.interactor!.pokemon?.pokemonDetail!.types[1].type.name)!)
-            typesLabel[1].isHidden = false
-            
-        }else{
-            typesLabel[0].text = self.interactor!.pokemon?.pokemonDetail!.types[0].type.name
-            typesLabel[0].backgroundColor = UIColor(named: (self.interactor!.pokemon?.pokemonDetail!.types[0].type.name)!)
-            typesLabel[0].isHidden = false
-            
-            typesLabel[1].text = ""
-            typesLabel[1].backgroundColor = .clear
-            typesLabel[1].isHidden = true
-        }
         typesLabel[0].layer.cornerRadius = 15
         typesLabel[0].layer.masksToBounds = true
         
@@ -120,15 +86,47 @@ class PokemonViewController: UIViewController {
         loaderView.isHidden = true
         self.view.isUserInteractionEnabled = true
     }
+}
+
+extension PokemonViewController : PokemonVControllerProtocol {
+    func showError(error: ModalError) {
+        error.frame = view.frame
+       // let errorr = ModalError(frame: view.frame)
+        view.addSubview(error)
+    }
     
-    func setImage(){
-        guard let url = URL(string: interactor!.pokemon!.imageUrl) else { return }
-        DispatchQueue.global().async {
-            guard let data = try? Data(contentsOf: url) else { return }
-            DispatchQueue.main.async {
-                print(data)
-                self.pokemonImage.image = UIImage(data: data)
-            }
+    func showOneType() {
+        typesLabel[0].text = self.interactor!.pokemon?.pokemonDetail!.types[0].type.name
+        typesLabel[0].backgroundColor = UIColor(named: (self.interactor!.pokemon?.pokemonDetail!.types[0].type.name)!)
+        typesLabel[0].isHidden = false
+        
+        typesLabel[1].text = ""
+        typesLabel[1].backgroundColor = .clear
+        typesLabel[1].isHidden = true
+    }
+    
+    func showTwoTypes() {
+        typesLabel[0].text = self.interactor!.pokemon?.pokemonDetail!.types[0].type.name
+        typesLabel[0].backgroundColor = UIColor(named: (self.interactor!.pokemon?.pokemonDetail!.types[0].type.name)!)
+        typesLabel[0].isHidden = false
+        
+        typesLabel[1].text = self.interactor!.pokemon?.pokemonDetail!.types[1].type.name
+        typesLabel[1].backgroundColor = UIColor(named: (self.interactor!.pokemon?.pokemonDetail!.types[1].type.name)!)
+        typesLabel[1].isHidden = false
+    }
+    
+    func swichImage(image: UIImage) {
+        DispatchQueue.main.async {
+            self.pokemonImage.image = image
         }
+    }
+    
+    func showDetails() {
+        interactor?.isShiny = false
+        setLabels()
+        setLayout()
+        setGesture()
+        hiddeLoader()
+        title = "\(interactor!.pokemon!.name)"
     }
 }
